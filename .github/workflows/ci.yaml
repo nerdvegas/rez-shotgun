@@ -1,20 +1,15 @@
-name: Shotgun Toolkit
+name: CI
 on:
-  # Do not run if Docker image has been updated
-  pull_request:
-    paths:
-      - 'src/support/shotgun_toolkit/**'
-  push:
-    paths:
-      - 'src/support/shotgun_toolkit/**'
+- pull_request
+- push
 
 jobs:
   app-launch-hook:
     name: App Launch Hook - ${{ matrix.tk-config }}
     runs-on: ubuntu-latest
     env:
-      EXAMPLE_PATCH_PATH: "src/support/shotgun_toolkit/${{ matrix.tk-config }}/example-configs.patch"
-      SRC_HOOK_PATH: "src/support/shotgun_toolkit/${{ matrix.tk-config }}/${{ matrix.hook-path }}/rez_app_launch.py"
+      EXAMPLE_PATCH_PATH: "${{ matrix.tk-config }}/example-configs.patch"
+      SRC_HOOK_PATH: "${{ matrix.tk-config }}/${{ matrix.hook-path }}/rez_app_launch.py"
       SRC_URL: "https://github.com/shotgunsoftware/${{ matrix.tk-config }}/archive/${{ matrix.config-release }}.tar.gz"
 
     strategy:
