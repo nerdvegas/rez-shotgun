@@ -1,5 +1,8 @@
 # App Launch Hook - Rez
 
+[![CI](https://github.com/nerdvegas/rez-shotgun/workflows/CI/badge.svg?branch=master)](https://github.com/nerdvegas/rez-shotgun/actions?query=workflow%3ACI+branch%3Amaster)
+
+
 This hook is executed to launch applications, potentially in a Rez context.
 
 It is **NOT** official/supported by Shotgun Software, but by
