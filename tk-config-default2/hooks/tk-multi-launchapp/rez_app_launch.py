@@ -59,6 +59,7 @@ class AppLaunch(HookBaseClass):
             # Only import after rez_py_path is inside sys.path
             from rez.resolved_context import ResolvedContext
             from rez.config import config
+
             rez_parent_variables = rez_info.get("parent_variables", [])
             rez_packages = rez_info.get("packages", [])
             self.logger.debug("rez parent variables: %s", rez_parent_variables)
@@ -68,15 +69,14 @@ class AppLaunch(HookBaseClass):
             context = ResolvedContext(rez_packages)
             current_env = os.environ.copy()
 
-            env_kwargs = {'suffix': '-prev-env.py', 'delete': False}
-            with NamedTemporaryFile(mode='w+', **env_kwargs) as env_file:
+            env_kwargs = {"suffix": "-prev-env.py", "delete": False}
+            with NamedTemporaryFile(mode="w+", **env_kwargs) as env_file:
                 env_file.write(pformat(current_env))
                 self.logger.debug(
-                    'Copied existing env for rez. See: "%s"',
-                    env_file.name
-                    )
+                    'Copied existing env for rez. See: "%s"', env_file.name
+                )
 
-            with TemporaryFile(mode='w+') as info_buffer:
+            with TemporaryFile(mode="w+") as info_buffer:
                 context.print_info(buf=info_buffer)
                 info_buffer.seek(0)
                 self.logger.debug(
@@ -84,15 +84,15 @@ class AppLaunch(HookBaseClass):
                     shell_type,
                     cmd,
                     info_buffer.read(),
-                    )
+                )
 
             launcher_process = context.execute_shell(
                 command=cmd,
                 parent_environ=current_env,
                 shell=shell_type,
                 stdin=False,
-                block=False
-                )
+                block=False,
+            )
             exit_code = launcher_process.wait()
         else:
             # run the command to launch the app
@@ -111,7 +111,7 @@ class AppLaunch(HookBaseClass):
             str, str: Command to run and (rez) shell type to run in.
         """
         system = sys.platform
-        shell_type = 'bash'
+        shell_type = "bash"
 
         if system.startswith("linux"):
             # on linux, we just run the executable directly
@@ -131,7 +131,7 @@ class AppLaunch(HookBaseClass):
             # built-in mac open command to execute it
             cmd_template = 'open -n "{path}"'
             if app_args:
-                app_args = app_args.replace('"', r'\"')
+                app_args = app_args.replace('"', r"\"")
                 cmd_template += ' --args "{flattened_args}"'
 
         elif system == "win32":
@@ -170,12 +170,12 @@ class AppLaunch(HookBaseClass):
                 raise ImportError(
                     "Failed to find Rez as a package in the current "
                     "environment! Try 'rez-bind rez'!"
-                    )
+                )
             else:
                 self.logger.warn(
                     "Failed to find a Rez package in the current "
                     "environment. Unable to request Rez packages."
-                    )
+                )
 
             rez_python_path = ""
         else:
