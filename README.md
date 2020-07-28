@@ -1,6 +1,7 @@
 # App Launch Hook - Rez
 
 [![CI](https://github.com/nerdvegas/rez-shotgun/workflows/CI/badge.svg?branch=master)](https://github.com/nerdvegas/rez-shotgun/actions?query=workflow%3ACI+branch%3Amaster)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
 This hook is executed to launch applications, potentially in a Rez context.

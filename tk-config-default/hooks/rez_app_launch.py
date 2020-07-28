@@ -42,7 +42,13 @@ class AppLaunch(tank.Hook):
             # NUKE_PATH is used by tk-nuke
             # HIERO_PLUGIN_PATH is used by tk-nuke (nukestudio)
             # KATANA_RESOURCES is used by tk-katana
-            config.parent_variables = ["PYTHONPATH", "HOUDINI_PATH", "NUKE_PATH", "HIERO_PLUGIN_PATH", "KATANA_RESOURCES"]
+            config.parent_variables = [
+                "PYTHONPATH",
+                "HOUDINI_PATH",
+                "NUKE_PATH",
+                "HIERO_PLUGIN_PATH",
+                "KATANA_RESOURCES",
+            ]
 
             rez_packages = extra["rez_packages"]
             context = ResolvedContext(rez_packages)
@@ -50,7 +56,7 @@ class AppLaunch(tank.Hook):
             use_rez = True
 
         system = sys.platform
-        shell_type = 'bash'
+        shell_type = "bash"
         if system == "linux2":
             # on linux, we just run the executable directly
             cmd = "%s %s &" % (app_path, app_args)
@@ -67,15 +73,15 @@ class AppLaunch(tank.Hook):
             # to the application bundle and not to the binary file
             # embedded in the bundle, meaning that we should use the
             # built-in mac open command to execute it
-            cmd = "open -n \"%s\"" % (app_path)
+            cmd = 'open -n "%s"' % (app_path)
             if app_args:
-                cmd += " --args \"%s\"" % app_args.replace("\"", "\\\"")
+                cmd += ' --args "%s"' % app_args.replace('"', '\\"')
 
         elif system == "win32":
             # on windows, we run the start command in order to avoid
             # any command shells popping up as part of the application launch.
-            cmd = "start /B \"App\" \"%s\" %s" % (app_path, app_args)
-            shell_type = 'cmd'
+            cmd = 'start /B "App" "%s" %s' % (app_path, app_args)
+            shell_type = "cmd"
 
         # Execute App in a Rez context
         if use_rez:
@@ -85,7 +91,7 @@ class AppLaunch(tank.Hook):
                 parent_environ=n_env,
                 shell=shell_type,
                 stdin=False,
-                block=False
+                block=False,
             )
             exit_code = proc.wait()
             context.print_info(verbosity=True)
@@ -94,10 +100,7 @@ class AppLaunch(tank.Hook):
             # run the command to launch the app
             exit_code = os.system(cmd)
 
-        return {
-            "command": cmd,
-            "return_code": exit_code
-        }
+        return {"command": cmd, "return_code": exit_code}
 
     def check_rez(self, strict=True):
         """
@@ -116,12 +119,16 @@ class AppLaunch(tank.Hook):
 
         if err or not rez_path:
             if strict:
-                raise ImportError("Failed to find Rez as a package in the current "
-                                  "environment! Try 'rez-bind rez'!")
+                raise ImportError(
+                    "Failed to find Rez as a package in the current "
+                    "environment! Try 'rez-bind rez'!"
+                )
             else:
-                print("WARNING: Failed to find a Rez package in the current "
-                      "environment. Unable to request Rez packages.",
-                      file=sys.stderr)
+                print(
+                    "WARNING: Failed to find a Rez package in the current "
+                    "environment. Unable to request Rez packages.",
+                    file=sys.stderr,
+                )
 
             rez_path = ""
         else:
