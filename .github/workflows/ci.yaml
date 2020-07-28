@@ -4,6 +4,20 @@ on:
 - push
 
 jobs:
+  black:
+    name: Black formatted
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - uses: actions/setup-python@v1
+       with:
+         python-version: 3.7
+     - name: Check all Python files
+       run: |
+         pip install black
+         git ls-files | grep '\.py$' | xargs black
+         git diff --color=always --exit-code
+
   app-launch-hook:
     name: App Launch Hook - ${{ matrix.tk-config }}
     runs-on: ubuntu-latest
