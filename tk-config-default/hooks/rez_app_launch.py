@@ -50,7 +50,9 @@ class AppLaunch(tank.Hook):
                 "KATANA_RESOURCES",
             ]
 
-            rez_packages = extra["rez_packages"]
+            rez_packages = [
+                request.format(version=version) for request in extra.get("packages", [])
+            ]
             context = ResolvedContext(rez_packages)
 
             use_rez = True

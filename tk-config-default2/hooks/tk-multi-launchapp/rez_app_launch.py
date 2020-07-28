@@ -61,7 +61,10 @@ class AppLaunch(HookBaseClass):
             from rez.config import config
 
             rez_parent_variables = rez_info.get("parent_variables", [])
-            rez_packages = rez_info.get("packages", [])
+            rez_packages = [
+                request.format(version=version)
+                for request in rez_info.get("packages", [])
+            ]
             self.logger.debug("rez parent variables: %s", rez_parent_variables)
             self.logger.debug("rez packages: %s", rez_packages)
 
