@@ -51,8 +51,7 @@ class AppLaunch(tank.Hook):
             ]
 
             rez_packages = [
-                request.format(version=version)
-                for request in extra.get("packages", [])
+                request.format(version=version) for request in extra.get("packages", [])
             ]
             context = ResolvedContext(rez_packages)
 
