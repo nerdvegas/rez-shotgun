@@ -105,10 +105,13 @@ Otherwise, manually...
    # rez Maya 2019
    settings.tk-multi-launchapp.maya:
      engine: tk-maya
+     versions:  # Tip! These will be substituted as {version}
+       - 2019.0
+       - 2019.2
      extra:
        rez:
          packages:
-         - maya-2019
+         - "maya-{version}"  # i.e. maya-2019.0
          # # Optional, additional rez packages
          # - studio_maya_tools-1.2
          # - show_maya_tools-dev
@@ -214,9 +217,12 @@ Otherwise, manually...
    # -------------------------------------------------
    launch_rez_maya_2019:
      engine: tk-maya
+     versions:  # Tip! These will be substituted as {version}
+       - 2019.0
+       - 2019.2
      extra:
        rez_packages:
-       - maya-2019
+       - "maya-{version}"  # i.e. maya-2019.0
        # # Optional, additional rez packages
        # - studio_maya_tools-1.2
        # - show_maya_tools-dev
