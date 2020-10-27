@@ -46,8 +46,11 @@ version = release = "0.3.0"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "autoapi.extension",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.napoleon",
+    # See doc_requirements.txt
+    "autoapi.extension",
     "sphinx_rtd_theme",
     "m2r2",
 ]
@@ -87,9 +90,35 @@ ensure_static_exists()
 del ensure_static_exists
 
 
+# A dictionary of values to pass into the template engine’s context for
+# all pages. Single values can also be put in this dictionary using the
+# -A command-line option of sphinx-build.
+html_context = {
+    "display_github": True,
+    "github_user": "nerdvegas",
+    "github_repo": "rez-shotgun",
+    "github_version": "master",
+    "conf_py_path": "/docs/",
+}
+
+
+# The URL which points to the root of the HTML documentation.
+# It is used to indicate the location of document like canonical_url.
+html_baseurl = "https://{github_user}.github.io/{github_repo}".format(**html_context)
+
+
 # -- autoapi.extension --------------------------------------------------------
 autoapi_type = "python"
-autoapi_dirs = [os.path.join(*paths) for paths in __source_dirs__]
+autoapi_dirs = [os.path.join(*_paths) for _paths in __source_dirs__]
 
 # Helps separate out tk-config-default and tk-config-default2
 autoapi_python_use_implicit_namespaces = True
+
+
+# -- sphinx.ext.intersphinx ---------------------------------------------------
+
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/2", None),
+    "tk-core": ("http://developer.shotgunsoftware.com/tk-core", None),
+    "rez": ("https://nerdvegas.github.io/rez/", None),
+}
