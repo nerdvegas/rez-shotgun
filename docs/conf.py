@@ -11,7 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
-
+import re
 
 __abs_file__ = os.path.abspath(__file__)
 __repo_docs__ = os.path.dirname(__abs_file__)
@@ -36,8 +36,29 @@ project = "rez-shotgun"
 author = ", ".join(__authors__)
 copyright = "2020, {0}".format(author)
 
+
+def get_latest_version():
+    """Get first version heading from top of ``CHANGELOG.md``.
+
+    Returns:
+        str: Version number, else "unknown".
+    """
+    found_version = "unknown"
+    version_re = r"^## \[(\d+\.\d+\.\d+)\]"
+
+    with open(os.path.join(__repo_root__, "CHANGELOG.md")) as changelog_file:
+        for line in changelog_file:
+            found = re.search(version_re, line)
+            if found:
+                found_version = found.group(1)
+                break
+
+    return found_version
+
+
 # The full version, including alpha/beta/rc tags
-version = release = "0.3.0"
+version = release = get_latest_version()
+del get_latest_version
 
 
 # -- General configuration ---------------------------------------------------
