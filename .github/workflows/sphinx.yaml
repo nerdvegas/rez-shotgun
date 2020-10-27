@@ -1,0 +1,61 @@
+name: Sphinx Documentation
+on:
+  release:
+    types: [published]
+  push:
+    paths: &docs_src_paths
+      - "docs/**"
+      - "tk-*/**/*.py"
+  pull_request:
+    paths: *docs_src_paths
+
+jobs:
+  build:
+    name: Build Sphinx Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      
+      - run: pip install -r doc_requirements.txt
+      
+      - run: sphinx-build . _build
+        working-directory: docs
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: html-docs
+          path: docs/_build
+
+  publish:
+    name: Publish to GitHub Pages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: build
+
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: html-docs
+          path: .
+
+      - name: Setup git repository
+        run: |
+          git config --global color.ui always
+          git init .
+          git config --global user.name "github.com/${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@${{ github.sha }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git checkout -B gh-pages
+
+      - name: Git commit, force push gh-pages
+        run: |
+          git add .
+          git commit \
+              -m "Generated from GitHub "${{ github.workflow }}" Workflow" \
+              -m "See https://github.com/${{ github.repository }}/runs/${GITHUB_ACTION}" \
+              && git push --force origin gh-pages \
+              || echo "Nothing new to commit and push"
