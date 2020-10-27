@@ -12,10 +12,12 @@ Welcome to rez-shotgun's documentation!
 
    autoapi/index
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Hook APIs
+   :name: apis
+   :glob:
+   :hidden:
 
-Indices and tables
-==================
+   autoapi/**/index
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
