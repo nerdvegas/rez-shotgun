@@ -1,3 +1,11 @@
+.. note::
+      This page is converted from ``README.md``, so some links and elements
+      don't quite work as they should. But the API docs are cool!
+
+      See `original here instead on GitHub
+      <https://github.com/nerdvegas/rez-shotgun/blob/master/README.md>`_.
+
+
 .. mdinclude:: ../README.md
 
 .. toctree::

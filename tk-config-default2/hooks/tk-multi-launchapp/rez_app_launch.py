@@ -27,6 +27,8 @@ class RezAppLaunch(HookBaseClass):
     ):
         """Create parent environment variables for rez's sub-shell.
 
+        .. versionadded:: 0.3.0
+
         By default, it just returns a copy of the current environment
         variables but is designed to be overridden/extended to patch in
         any last minute environment modifications.
