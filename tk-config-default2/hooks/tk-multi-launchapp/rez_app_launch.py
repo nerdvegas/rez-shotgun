@@ -19,8 +19,37 @@ import sgtk
 HookBaseClass = sgtk.get_hook_baseclass()
 
 
-class AppLaunch(HookBaseClass):
+class RezAppLaunch(HookBaseClass):
     """Hook to run an application."""
+
+    def create_shell_parent_env(
+        self, context, config, app_path, app_args, version, **kwargs
+    ):
+        """Create parent environment variables for rez's sub-shell.
+
+        By default, it just returns a copy of the current environment
+        variables but is designed to be overridden/extended to patch in
+        any last minute environment modifications.
+
+        Args:
+            context (rez.resolved_context.ResolvedContext):
+                Resolved context to execute sub-shell with.
+            config (rez.config.Config):
+                Current rez configurations *singleton*.
+            app_path (str):
+                The path of the application executable
+            app_args (str):
+                Any arguments the application may require
+            version (str):
+                version of the application being run if set in the "versions"
+                settings of the Launcher instance, otherwise ``None``.
+            kwargs (dict):
+                Additional key word arguments passed into ``self.execute()``.
+
+        Returns:
+            dict[str, str]: Variable names mapped to their values.
+        """
+        return os.environ.copy()
 
     def execute(self, app_path, app_args, version, **kwargs):
         """Start the required application using rez if required.
@@ -70,11 +99,13 @@ class AppLaunch(HookBaseClass):
 
             config.parent_variables = rez_parent_variables
             context = ResolvedContext(rez_packages)
-            current_env = os.environ.copy()
+            parent_env = self.create_shell_parent_env(
+                context, config, app_path, app_args, version, **kwargs
+            )
 
             env_kwargs = {"suffix": "-prev-env.py", "delete": False}
             with NamedTemporaryFile(mode="w+", **env_kwargs) as env_file:
-                env_file.write(pformat(current_env))
+                env_file.write(pformat(parent_env))
                 self.logger.debug(
                     'Copied existing env for rez. See: "%s"', env_file.name
                 )
@@ -91,7 +122,7 @@ class AppLaunch(HookBaseClass):
 
             launcher_process = context.execute_shell(
                 command=cmd,
-                parent_environ=current_env,
+                parent_environ=parent_env,
                 shell=shell_type,
                 stdin=False,
                 block=False,

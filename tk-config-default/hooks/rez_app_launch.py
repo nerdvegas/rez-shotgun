@@ -17,6 +17,33 @@ class AppLaunch(tank.Hook):
     Hook to run an application.
     """
 
+    def create_shell_parent_env(
+        self, context, config, app_path, app_args, version, **kwargs
+    ):
+        """Create parent environment variables for rez's sub-shell.
+
+        By default, it just returns a copy of the current environment
+        variables but is designed to be overridden/extended to patch in
+        any last minute environment modifications.
+
+        :param context: Resolved context to execute sub-shell with.
+        :type rez.context: resolved_context.ResolvedContext
+        :param config: Current rez configurations *singleton*.
+        :type rez.config: config.Config
+        :param app_path: The path of the application executable.
+        :type app_path: str
+        :param app_args: Any arguments the application may require.
+        :type app_args: str
+        :param version: version of the application being run if set in the "versions"
+                        settings of the Launcher instance, otherwise ``None``.
+        :type version: str
+        :param kwargs: Additional key word arguments passed into ``self.execute()``.
+        :type kwargs: dict
+        :returns: Variable names mapped to their values.
+        :rtype: dict[str, str]
+        """
+        return os.environ.copy()
+
     def execute(self, app_path, app_args, version, **kwargs):
         """
         The execute functon of the hook will be called to start the required application
@@ -87,7 +114,9 @@ class AppLaunch(tank.Hook):
 
         # Execute App in a Rez context
         if use_rez:
-            n_env = os.environ.copy()
+            n_env = self.create_shell_parent_env(
+                context, config, app_path, app_args, version, **kwargs
+            )
             proc = context.execute_shell(
                 command=cmd,
                 parent_environ=n_env,
