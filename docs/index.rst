@@ -12,8 +12,8 @@
    License
 
 .. toctree::
-   :maxdepth: 2
    :caption: Hook APIs
+   :titlesonly:
    :name: apis
    :glob:
    :hidden:

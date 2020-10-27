@@ -1,0 +1,5 @@
+m2r2
+sphinx-autoapi
+sphinx-rtd-theme
+git+https://github.com/nerdvegas/rez.git
+git+https://github.com/shotgunsoftware/tk-core.git
