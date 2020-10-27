@@ -10,19 +10,29 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
+import os
+
 # import sys
-# sys.path.insert(0, os.path.abspath('.'))
+
+__abs_file__ = os.path.abspath(__file__)
+__repo_docs__ = os.path.dirname(__abs_file__)
+__repo_root__ = os.path.dirname(__repo_docs__)
+
+# __source_dirs__ = [
+#     (__repo_root__, "tk-config-default", "hooks"),
+#     (__repo_root__, "tk-config-default2", "hooks", "tk-multi-launchapp"),
+# ]
+# sys.path = [os.path.join(*paths) for paths in __source_dirs__] + sys.path
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'rez-shotgun'
-copyright = '2020, Allan Johns, Renaud Lessard Larouche, Brendan Abel, Sebastian Kral, Liam Hoflay, Joseph Yu'
-author = 'Allan Johns, Renaud Lessard Larouche, Brendan Abel, Sebastian Kral, Liam Hoflay, Joseph Yu'
+project = "rez-shotgun"
+author = "Allan Johns, Renaud Lessard Larouche, Brendan Abel, Sebastian Kral, Liam Hoflay, Joseph Yu"
+copyright = "2020, {0}".format(author)
 
 # The full version, including alpha/beta/rc tags
-release = '0.3.0'
+release = "0.3.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -31,15 +41,18 @@ release = '0.3.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "autoapi.extension",
+    "sphinx_rtd_theme",
 ]
 
+
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -47,9 +60,13 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = "sphinx_rtd_theme"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
+
+# -- autoapi.extension --------------------------------------------------------
+autoapi_type = "python"
+autoapi_dirs = [__repo_root__]

@@ -10,6 +10,7 @@ Welcome to rez-shotgun's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   autoapi/index
 
 
 Indices and tables
