@@ -43,6 +43,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.napoleon",
     "sphinx_rtd_theme",
+    "m2r2",
 ]
 
 
