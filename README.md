@@ -1,7 +1,9 @@
 # App Launch Hook - Rez
 
 [![CI](https://github.com/nerdvegas/rez-shotgun/workflows/CI/badge.svg?branch=master)](https://github.com/nerdvegas/rez-shotgun/actions?query=workflow%3ACI+branch%3Amaster)
+[![Sphinx Documentation](https://github.com/nerdvegas/rez-shotgun/workflows/Sphinx%20Documentation/badge.svg)](https://github.com/nerdvegas/rez-shotgun/actions?query=workflow%3A%22Sphinx+Documentation%22+branch%3Amaster)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Docs: GitHub Pages](https://img.shields.io/badge/doc-reference-blue.svg)](https://nerdvegas.github.io/rez-shotgun)
 
 
 This hook is executed to launch applications, potentially in a Rez context.
