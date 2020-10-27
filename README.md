@@ -18,18 +18,18 @@ With a proper Rez installation, you can do this by running `rez-bind rez`.
 To keep a copy of the original `rez_app_launch.py`, there are 2 variants
 available:
 
-- [tk-config-default2][] is the latest pipeline configuration style
+- [tk-config-default2] is the latest pipeline configuration style
 
   - Currently supported by Shotgun Software
   - Will be targeting this going forward for `rez_app_launch.py`
 
-- [tk-config-default][] is the legacy pipeline configuration style
+- [tk-config-default] is the legacy pipeline configuration style
 
   - Less supported by Shotgun Software
   - The original `rez_app_launch.py`, only updated to keep it functional
 
-> As of writing, the 2 `rez_app_launch.py` was tested at [WWFX UK][]
-> using [rez 2.28.0][]. Newer `rez` versions may be tested in the future.
+> As of writing, the 2 `rez_app_launch.py` was tested at [WWFX UK]
+> using [rez 2.28.0]. Newer `rez` versions may be tested in the future.
 
 
 
@@ -41,7 +41,7 @@ available:
    video or checkout [this official tutorial page](https://developer.shotgunsoftware.com/5d83a936/#accessing-the-default-configuration)
 
 1. Identify whether your pipeline configurations are based off
-   [tk-config-default2][] or [tk-config-default][] (legacy)
+   [tk-config-default2] or [tk-config-default] (legacy)
 
 The Python hook and example `.yml` configuration files are setup in a way
 that mimics the folder structure where you need to copy them into.
@@ -75,14 +75,14 @@ Python hook file, setting up applications to be launched from Rez are done by:
 
 Then, you should be able to see and launch applications in rez context in:
 
-- **Shotgun Create** app: setup by [tk-desktop2][]
-- **Shotgun Desktop** app: setup by [tk-desktop][]
-- Menus in the **Shotgun Website**: setup by [tk-shotgun][]
-- **Shotgun Shell**: setup by [tk-shell][]
+- **Shotgun Create** app: setup by [tk-desktop2]
+- **Shotgun Desktop** app: setup by [tk-desktop]
+- Menus in the **Shotgun Website**: setup by [tk-shotgun]
+- **Shotgun Shell**: setup by [tk-shell]
 
 ### tk-config-default2
 
-If you are using [tk-config-default2 v1.2.11][] and have the [patch][]
+If you are using [tk-config-default2 v1.2.11] and have the [patch]
 program available, you can do these remaining steps by simply running
 in the terminal (tested on Linux):
 
@@ -191,7 +191,7 @@ Otherwise, manually...
 
 ### tk-config-default (legacy)
 
-If you are using [tk-config-default v0.18.2][] and have the [patch][]
+If you are using [tk-config-default v0.18.2] and have the [patch]
 program available, you can do these remaining steps by simply running
 in the terminal (tested on Linux):
 
