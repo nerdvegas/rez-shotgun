@@ -2,12 +2,14 @@
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents
-   :name: contents
+   :caption: Pages
+   :name: pages
    :glob:
    :hidden:
 
-   *
+   Authors
+   Changelog
+   License
 
 .. toctree::
    :maxdepth: 2
@@ -16,6 +18,7 @@
    :glob:
    :hidden:
 
+   indices
    autoapi/**/index
 
 

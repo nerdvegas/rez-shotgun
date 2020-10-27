@@ -26,9 +26,9 @@ __source_dirs__ = [
 
 __authors__ = (
     "Allan Johns",
-    "Renaud Lessa,rd Larouche",
+    "Renaud Lessard Larouche",
     "Brendan Abel",
-    "Sebastian Kra,l",
+    "Sebastian Kral",
     "Liam Hoflay",
     "Joseph Yu",
 )
