@@ -12,7 +12,6 @@
 #
 import os
 
-# import sys
 
 __abs_file__ = os.path.abspath(__file__)
 __repo_docs__ = os.path.dirname(__abs_file__)
@@ -21,17 +20,24 @@ __source_dirs__ = [
     (__repo_root__, "tk-config-default"),
     (__repo_root__, "tk-config-default2"),
 ]
-# sys.path = [os.path.join(*paths) for paths in __source_dirs__] + sys.path
 
 
 # -- Project information -----------------------------------------------------
 
+__authors__ = (
+    "Allan Johns",
+    "Renaud Lessa,rd Larouche",
+    "Brendan Abel",
+    "Sebastian Kra,l",
+    "Liam Hoflay",
+    "Joseph Yu",
+)
 project = "rez-shotgun"
-author = "Allan Johns, Renaud Lessard Larouche, Brendan Abel, Sebastian Kral, Liam Hoflay, Joseph Yu"
+author = ", ".join(__authors__)
 copyright = "2020, {0}".format(author)
 
 # The full version, including alpha/beta/rc tags
-release = "0.3.0"
+version = release = "0.3.0"
 
 
 # -- General configuration ---------------------------------------------------

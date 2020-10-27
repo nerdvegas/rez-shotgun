@@ -8,7 +8,6 @@
    :hidden:
 
    *
-   Rez Wiki<https://github.com/nerdvegas/rez/wiki>
 
 .. toctree::
    :maxdepth: 2
@@ -19,3 +18,13 @@
 
    autoapi/**/index
 
+
+.. toctree::
+   :caption: Links
+   :name: links
+   :glob:
+   :hidden:
+
+   GitHub Source Code<https://github.com/nerdvegas/rez-shotgun>
+   Rez Wiki<https://github.com/nerdvegas/rez/wiki>
+   tk-multi-launchapp settings<https://github.com/shotgunsoftware/tk-multi-launchapp/blob/master/info.yml#L166-L178>
