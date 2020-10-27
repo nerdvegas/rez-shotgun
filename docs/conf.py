@@ -74,6 +74,19 @@ html_theme = "sphinx_rtd_theme"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+
+def ensure_static_exists():
+    """Make sure ``html_static_path`` exists."""
+    for entry in html_static_path:
+        static_path = os.path.join(__repo_docs__, entry)
+        if not os.path.isdir(static_path):
+            os.makedirs(static_path)
+
+
+ensure_static_exists()
+del ensure_static_exists
+
+
 # -- autoapi.extension --------------------------------------------------------
 autoapi_type = "python"
 autoapi_dirs = [os.path.join(*paths) for paths in __source_dirs__]
