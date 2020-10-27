@@ -3,11 +3,13 @@ on:
   release:
     types: [published]
   push:
-    paths: &docs_src_paths
+    paths:
       - "docs/**"
       - "tk-*/**/*.py"
   pull_request:
-    paths: *docs_src_paths
+    paths:
+      - "docs/**"
+      - "tk-*/**/*.py"
 
 jobs:
   build:
