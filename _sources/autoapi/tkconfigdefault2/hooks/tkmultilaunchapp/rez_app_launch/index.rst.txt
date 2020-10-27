@@ -1,0 +1,116 @@
+:mod:`tk-config-default2.hooks.tk-multi-launchapp.rez_app_launch`
+=================================================================
+
+.. py:module:: tk-config-default2.hooks.tk-multi-launchapp.rez_app_launch
+
+.. autoapi-nested-parse::
+
+   tk-config-default2 hook to run applications, potentially in a Rez context.
+
+   Please note that this requires Rez to be installed as a package,
+   which exposes the Rez Python API. With a proper Rez installation, you can do
+   this by running ``rez-bind rez``.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   tk-config-default2.hooks.tk-multi-launchapp.rez_app_launch.RezAppLaunch
+
+
+
+.. data:: HookBaseClass
+   
+
+   
+
+.. py:class:: RezAppLaunch
+
+   Bases: :class:`HookBaseClass`
+
+   Hook to run an application.
+
+   .. method:: create_shell_parent_env(self, context, config, app_path, app_args, version, **kwargs)
+
+      Create parent environment variables for rez's sub-shell.
+
+      .. versionadded:: 0.3.0
+
+      By default, it just returns a copy of the current environment
+      variables but is designed to be overridden/extended to patch in
+      any last minute environment modifications.
+
+      :param context: Resolved context to execute sub-shell with.
+      :type context: rez.resolved_context.ResolvedContext
+      :param config: Current rez configurations *singleton*.
+      :type config: rez.config.Config
+      :param app_path: The path of the application executable
+      :type app_path: str
+      :param app_args: Any arguments the application may require
+      :type app_args: str
+      :param version: version of the application being run if set in the "versions"
+                      settings of the Launcher instance, otherwise ``None``.
+      :type version: str
+      :param kwargs: Additional key word arguments passed into ``self.execute()``.
+      :type kwargs: dict
+
+      :returns: Variable names mapped to their values.
+      :rtype: dict[str, str]
+
+
+   .. method:: execute(self, app_path, app_args, version, **kwargs)
+
+      Start the required application using rez if required.
+
+      .. rubric:: Notes
+
+      - Define variables used to bootstrap tank from overwrite on
+        first reference
+      - Define others within ``tk-multi-launchapp.yml`` file in the
+        ``extra:rez:parent_variables`` list.
+
+      :param app_path: The path of the application executable
+      :type app_path: str
+      :param app_args: Any arguments the application may require
+      :type app_args: str
+      :param version: version of the application being run if set in the "versions"
+                      settings of the Launcher instance, otherwise ``None``
+      :type version: str
+
+      :returns:     Execute results mapped to 'command' (str) and
+                    'return_code' (int).
+      :rtype: dict[str]
+
+
+   .. method:: background_cmd_shell_type(self, app_path, app_args)
+
+      Make command string and shell type name for current environment.
+
+      :param app_path: The path of the application executable.
+      :type app_path: str
+      :param app_args: Any arguments the application may require.
+      :type app_args: str
+
+      :returns: Command to run and (rez) shell type to run in.
+      :rtype: str, str
+
+
+   .. method:: get_rez_path(self, strict=True)
+
+      Get ``rez`` python package path from the current environment.
+
+      :param strict: Whether to raise an error if Rez is not available as a package.
+                     This will prevent the app from being launched.
+      :type strict: bool
+
+      :returns: A path to the Rez package, can be empty if ``strict=False``..
+      :rtype: str
+
+
+

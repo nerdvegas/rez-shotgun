@@ -1,0 +1,84 @@
+:mod:`tk-config-default.hooks.rez_app_launch`
+=============================================
+
+.. py:module:: tk-config-default.hooks.rez_app_launch
+
+.. autoapi-nested-parse::
+
+   tk-config-default hook to run applications, potentially in a Rez context.
+
+   Please note that this requires Rez to be installed as a package,
+   which exposes the Rez Python API. With a proper Rez installation, you can do
+   this by running ``rez-bind rez``.
+
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   tk-config-default.hooks.rez_app_launch.AppLaunch
+
+
+
+.. py:class:: AppLaunch(parent)
+
+   Bases: :class:`tank.Hook`
+
+   Hook to run an application.
+
+   .. method:: create_shell_parent_env(self, context, config, app_path, app_args, version, **kwargs)
+
+      Create parent environment variables for rez's sub-shell.
+
+      .. versionadded:: 0.3.0
+
+      By default, it just returns a copy of the current environment
+      variables but is designed to be overridden/extended to patch in
+      any last minute environment modifications.
+
+      :param context: Resolved context to execute sub-shell with.
+      :type rez.context: resolved_context.ResolvedContext
+      :param config: Current rez configurations *singleton*.
+      :type rez.config: config.Config
+      :param app_path: The path of the application executable.
+      :type app_path: str
+      :param app_args: Any arguments the application may require.
+      :type app_args: str
+      :param version: version of the application being run if set in the "versions"
+                      settings of the Launcher instance, otherwise ``None``.
+      :type version: str
+      :param kwargs: Additional key word arguments passed into ``self.execute()``.
+      :type kwargs: dict
+      :returns: Variable names mapped to their values.
+      :rtype: dict[str, str]
+
+
+   .. method:: execute(self, app_path, app_args, version, **kwargs)
+
+      The execute functon of the hook will be called to start the required application
+
+      :param app_path: (str) The path of the application executable
+      :param app_args: (str) Any arguments the application may require
+      :param version: (str) version of the application being run if set in the "versions" settings
+                            of the Launcher instance, otherwise None
+
+      :returns: (dict) The two valid keys are 'command' (str) and 'return_code' (int).
+
+
+   .. method:: check_rez(self, strict=True)
+
+      Checks to see if a Rez package is available in the current environment.
+      If it is available, add it to the system path, exposing the Rez Python API
+
+      :param strict: (bool) If True, raise an error if Rez is not available as a package.
+                            This will prevent the app from being launched.
+
+      :returns: A path to the Rez package.
+
+
+
